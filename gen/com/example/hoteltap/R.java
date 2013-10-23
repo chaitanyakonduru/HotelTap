@@ -5,12 +5,17 @@
  * should not be modified by hand.
  */
 
-package com.example.hoteltaprestaurant;
+package com.example.hoteltap;
 
 public final class R {
     public static final class attr {
     }
+    public static final class id {
+        public static final int framelayout=0x7f030001;
+        public static final int gridview=0x7f030000;
+    }
     public static final class layout {
-        public static final int layout_main=0x7f020000;
+        public static final int layout_item=0x7f020000;
+        public static final int layout_main=0x7f020001;
     }
 }
