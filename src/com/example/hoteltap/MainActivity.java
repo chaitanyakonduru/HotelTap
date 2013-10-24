@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
 import com.example.hoteltap.models.MenuItem;
 import com.example.hoteltap.models.MenuItemCatagory;
 import com.example.hoteltap.network.JsonResponseParser;
@@ -72,6 +73,8 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 			List<MenuItemCatagory> menuItemCatagoriesList=JsonResponseParser.parseMenuCatagoryResponse((String)object);
 			if(menuItemCatagoriesList!=null && !menuItemCatagoriesList.isEmpty())
 			{
+				ArrayAdapter<MenuItemCatagory> adapter=new ArrayAdapter<MenuItemCatagory>(this, android.R.layout.simple_list_item_1,menuItemCatagoriesList);
+				actionBar.setListNavigationCallbacks(adapter,this);
 				ActiveAndroid.beginTransaction();
 				for(MenuItemCatagory menuItemCatagory:menuItemCatagoriesList)
 				{
@@ -80,8 +83,10 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 					{
 					for(MenuItem menuItem:menuItemCatagory.getItemsList())
 					{
-						
+						if(!checkIfExists(menuItem))
+						{
 						menuItem.save();
+						}
 					}
 					}
 				}
@@ -101,6 +106,19 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 	@Override
 	public void onFailure(int requestCode, String errorMessge) {
 		
+	}
+	
+	private boolean checkIfExists(MenuItem calendarEvent) {
+		MenuItem calendarEvents = new Select("itemid")
+				.from(MenuItem.class)
+				.where("itemid="
+						+ calendarEvent.getItemId()).executeSingle();
+		if (calendarEvents != null) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }

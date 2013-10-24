@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <color name="android_green">#FFA4C639</color>
+    <color name="honeycombish_blue">#FF58BAED</color>
+    <color name="soft_grey">#FF777777</color>
+    <color name="background">#FFEFEFEF</color>
+    <color name="black_transperant">#80000000</color>
+    <color name="tab_bg_normal">#F0EFED</color>
+    <color name="tab_bg_selected">#CDCBCE</color>
+    <color name="dark_grey_color">#CDCBCE</color>
+    <color name="yellow">#F4DD98</color>
+    <color name="login_edit_text_color">#545454</color>
+    <color name="feeds_title_color">#4094ED</color>
+    <color name="android_blue">#33B5E5</color>
+	<color name="icontintcolor">#3A81B1</color>
+	<color name="red">#900</color>
+    <color name="green">#090</color>
+    <color name="blue">#009</color>
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+    <color name="upload_success">#3D7F1B</color>
+    <color name="upload_pending">#E8D21D</color>
+</resources>

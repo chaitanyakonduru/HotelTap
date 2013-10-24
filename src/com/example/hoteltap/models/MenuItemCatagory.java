@@ -36,7 +36,10 @@ public class MenuItemCatagory extends Model{
 	public void setItemsList(List<MenuItem> itemsList) {
 		this.itemsList = itemsList;
 	}
-	
+	@Override
+	public String toString() {
+		return this.itemCatagoryName;
+	}
 	
 	
 	

@@ -2,21 +2,18 @@ package com.example.hoteltap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.TextView;
-import com.example.hoteltap.R;
 
 public class ItemGridFragment extends Fragment {
 
 	private static ItemGridFragment itemGridFragment;
 	private static final String KEY_ITEM_NAME = "item_name";
 	private static final String KEY_ITEM_ID = "item_id";
-	private static final String TAG = null;
-	private GridView textView;
+	private static final String TAG = ItemGridFragment.class.getSimpleName();
+	private GridView mGridView;
 
 	public static ItemGridFragment newInstance(String string, int itemCatagoryId) {
 		itemGridFragment = new ItemGridFragment();
@@ -30,8 +27,7 @@ public class ItemGridFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.layout_item, null);
-		textView = (GridView) v.findViewById(R.id.gridview);
+		View v = inflater.inflate(R.layout.layout_item_details, null);
 		return v;
 	}
 
