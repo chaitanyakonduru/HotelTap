@@ -7,6 +7,14 @@ import com.activeandroid.annotation.Table;
 @Table(name = "MenuItem")
 public class MenuItem extends Model{
 
+	public String getItemCatagoryId() {
+		return itemCatagoryId;
+	}
+
+	public void setItemCatagoryId(String itemCatagoryId) {
+		this.itemCatagoryId = itemCatagoryId;
+	}
+
 	@Column(name = "itemid")
 	private String itemId;
 	
