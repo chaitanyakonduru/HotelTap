@@ -5,12 +5,12 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.ArrayAdapter;
 
 import com.activeandroid.ActiveAndroid;
@@ -21,44 +21,55 @@ import com.example.hoteltap.network.JsonResponseParser;
 import com.example.hoteltap.network.NetworkCallback;
 import com.example.hoteltap.network.RestaurantNetworkServiceManager;
 import com.example.hoteltap.utils.Constants;
+import com.example.hoteltap.utils.Utils;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MainActivity extends FragmentActivity implements OnNavigationListener, NetworkCallback<Object> {
+public class MainActivity extends FragmentActivity implements OnNavigationListener,onFragmentLoadListener,NetworkCallback<Object> {
 
 	private static final String TAG = MainActivity.class.getSimpleName();
-	private static final String [] itemCatagories=new String[]{"Breakfast","Lunch","Dinner"};
-	ItemGridFragment fragment=null;
+	private ItemGridFragment fragment=null;
 	private RestaurantNetworkServiceManager serviceManager;
 	private ActionBar actionBar;
+	private List<MenuItemCatagory> menuItemCatagoriesList;
+	private ProgressDialog progressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_main);
+		menuItemCatagoriesList=MenuItemCatagory.rawQuery(MenuItemCatagory.class, "select * from MenuItemCatagory ", null); 
+		
 		serviceManager=RestaurantNetworkServiceManager.getInstance(this);
-		serviceManager.fetchItemsRequest(Constants.FETCH_ITEMS, this);
+		
 		actionBar=getActionBar();
 		actionBar.show();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
-		actionBar.setListNavigationCallbacks(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,itemCatagories), this);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_TITLE);
+		actionBar.setTitle("MENU");
+		
+		if(menuItemCatagoriesList!=null && !menuItemCatagoriesList.isEmpty())
+		{
+			bindItemstoSpinner(menuItemCatagoriesList);
+		}
+		else
+		{
+			progressDialog=ProgressDialog.show(this, "", "Please wait..", false, true);
+			serviceManager.fetchItemsRequest(Constants.FETCH_ITEMS, this);
+
+		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return true;
-	}
 
 	@Override
 	public boolean onNavigationItemSelected(int arg0, long arg1) {
-		String itemCatagoryName=itemCatagories[arg0];
+		MenuItemCatagory itemCatagory=menuItemCatagoriesList.get(arg0);
 		FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 		if(fragment!=null)
 		{
 			fragmentTransaction.remove(fragment);
 		}
 		
-		fragment=ItemGridFragment.newInstance(itemCatagoryName, 10);
+		fragment=ItemGridFragment.newInstance(itemCatagory.getItemCatagoryName(), Integer.parseInt(itemCatagory.getItemCatagoryId()));
 		fragmentTransaction.replace(R.id.framelayout, fragment).commit();
 		
 		return false;
@@ -66,15 +77,16 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 
 	@Override
 	public void onSuccess(int requestCode, Object object) {
+		progressDialog.dismiss();
 		switch (requestCode) {
 		case Constants.FETCH_ITEMS:
+			progressDialog.dismiss();
 			if(object!=null && object instanceof String)
 			{
-			List<MenuItemCatagory> menuItemCatagoriesList=JsonResponseParser.parseMenuCatagoryResponse((String)object);
+			menuItemCatagoriesList=JsonResponseParser.parseMenuCatagoryResponse((String)object);
 			if(menuItemCatagoriesList!=null && !menuItemCatagoriesList.isEmpty())
 			{
-				ArrayAdapter<MenuItemCatagory> adapter=new ArrayAdapter<MenuItemCatagory>(this, android.R.layout.simple_list_item_1,menuItemCatagoriesList);
-				actionBar.setListNavigationCallbacks(adapter,this);
+				bindItemstoSpinner(menuItemCatagoriesList);
 				ActiveAndroid.beginTransaction();
 				for(MenuItemCatagory menuItemCatagory:menuItemCatagoriesList)
 				{
@@ -90,7 +102,7 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 					}
 					}
 				}
-				Log.v(TAG, "Updation Completed");
+				Utils.showToastMessage(this, "Data Updated");
 				ActiveAndroid.setTransactionSuccessful();
 				ActiveAndroid.endTransaction();
 				
@@ -103,9 +115,18 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 		}
 	}
 
+	private void bindItemstoSpinner(List<MenuItemCatagory> menuItemCatagories) {
+		if(menuItemCatagories!=null && !menuItemCatagories.isEmpty())
+		{
+		ArrayAdapter<MenuItemCatagory> adapter=new ArrayAdapter<MenuItemCatagory>(this, R.layout.layout_custom_spinner_text,menuItemCatagoriesList);
+		actionBar.setListNavigationCallbacks(adapter,this);
+		}
+	}
+
 	@Override
 	public void onFailure(int requestCode, String errorMessge) {
-		
+		progressDialog.dismiss();
+		Utils.showToastMessage(this, errorMessge);
 	}
 	
 	private boolean checkIfExists(MenuItem calendarEvent) {
@@ -119,6 +140,13 @@ public class MainActivity extends FragmentActivity implements OnNavigationListen
 			return false;
 		}
 
+	}
+
+
+	@Override
+	public void onFragmentLoaded(List<String> urls) {
+		
+		
 	}
 
 }

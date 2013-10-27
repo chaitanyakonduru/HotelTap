@@ -12,7 +12,7 @@
         android:gravity="center" >
 
         <TextView
-            android:id="@+id/item_details_btn_cancel"
+            android:id="@+id/item_details_item_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -25,14 +25,13 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/item_details_btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Price" />
 
             <TextView
-                android:id="@+id/item_details_btn_cancel"
+                android:id="@+id/item_details_item_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,17 +44,18 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/item_details_btn_cancel"
+                android:id="@+id/item_details_item_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Type" />
 
             <TextView
-                android:id="@+id/item_details_btn_cancel"
+                android:id="@+id/item_details_item_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:text="Name" />
         </LinearLayout>
     </LinearLayout>
@@ -71,13 +71,13 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:id="@+id/item_image"
+                android:id="@+id/item_details_image"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="5dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/daledum_thumbnail" />
+                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,14 +85,14 @@
                 android:gravity="center" >
 
                 <TextView
-                    android:id="@+id/item_details_btn_cancel"
+                    android:id="@+id/item_details_item_description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="dli Earliest mention of idli occurs in the Kannada writing called Vaddaradhane by Shivakotiacharya in 920 A and it seems to have started as a dish made only of fermented black lenti Chavundaraya II, the author of the earliest available Kannada encyclopaediaLokopakar" />
 
                 <TextView
-                    android:id="@+id/item_details_btn_cancel"
+                    android:id="@+id/item_details_item_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|top"
@@ -108,14 +108,14 @@
         android:gravity="center" >
 
         <TextView
-            android:id="@+id/item_details_btn_cancel"
+            android:id="@+id/item_details_item_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Quantity" />
 
         <EditText
-            android:id="@+id/item_details_btn_cancel"
+            android:id="@+id/item_details_item_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -128,19 +128,19 @@
         android:gravity="center" >
 
         <Button
-            android:id="@+id/item_details_btn_cancel"
+            android:id="@+id/item_details_item_back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="BACK" />
 
         <Button
-            android:id="@+id/item_details_btn_cancel"
+            android:id="@+id/item_details_item_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="ADD" />
     </LinearLayout>
->
+
 
 </LinearLayout>

@@ -5,22 +5,24 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="13"
         android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true" android:name="HotelTapApp">
         <activity
-            android:name="com.example.hoteltap.MainActivity" android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name="com.example.hoteltap.MainActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Restaurant">
         </activity>
          <meta-data android:name="AA_DB_NAME" android:value="hoteltap.db" />
 		<meta-data android:name="AA_DB_VERSION" android:value="5" />
+		<activity android:name="ItemDetailActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Restaurant"></activity>
+		<activity android:name="CartActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Restaurant"></activity>
+		<activity android:name="HomeActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Restaurant"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter></activity>
     </application>
 
 </manifest>
